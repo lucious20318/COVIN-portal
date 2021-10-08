@@ -18,6 +18,8 @@ public class COVIN
         System.out.println("Vaccine Name: " + name + ", Number of Doses: " + doses + ", Gap betweem Doses: " + gap_doses);
         
     }
+	
+    public static void  
     public static void main(String[] args) 
     {
         //end
