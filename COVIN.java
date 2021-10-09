@@ -46,9 +46,9 @@ public class COVIN
 
     }
 
-    class add_hospital
+    static class add_hospital
     {
-        public HashMap < Integer,ArrayList > hospital_rec = new HashMap<>();
+        public static HashMap < Integer,ArrayList > hospital_rec = new HashMap<>();
 
         public void add__hospital()
         {
@@ -71,10 +71,11 @@ public class COVIN
         }
     }
 
-    class Citizen
+    static class Citizen
     {
 
         public HashMap < String, Age > citizen_rec = new HashMap<>();
+        public static HashMap < String, String > citizen_na = new HashMap<>();
 
         public HashMap <String, String> vaccination_status = new HashMap<>();
 
@@ -104,7 +105,7 @@ public class COVIN
             {
                 //Else register , feed in the records.
                 citizen_rec.put(uniqID,age);
-
+                citizen_na.put(uniqID,name_cit);
                 vaccination_status.put(uniID,"REGISTERED");
                 
             }
@@ -130,27 +131,30 @@ public class COVIN
 
     class SLOT
     {   
-        public Hashmap <String , Integer> hos_covi_slot = new Hashmap<>();
-        public Hashmap <String , Integer> hos_cova_slot = new Hashmap<>();
+        public Hashmap <Integer , ArrayList> hos_cova_slot = new Hashmap<>();
+        public Hashmap <Integer , ArrayList> hos_covi_slot = new Hashmap<>();
 
         public void create_slot()
         {
             Scanner sc = new Scanner(System.in);
 
             System.out.println("Enter Hospital ID: ");
-            String hosID = sc.next();
+            int hosID = sc.next();
 
             System.out.println("Enter number of slots to be added: ");
             int n = sc.nextInt();
 
             for(int i=0; i<n; i++)
             {
+                ArrayList<Integer> book_info = new ArrayList<>();
                 System.out.println("Enter Day Number: ");
                 int dayno = sc.nextInt();
-    
+                book_info.add(dayno);
+
                 System.out.println("Enter Quantity: ");
                 int qty = sc.nextInt();
-    
+                book_info.add(qty);
+
                 System.out.println("Select Vaccine");
                 System.out.println("0. Covax");
                 System.out.println("1. Covi");
@@ -159,8 +163,11 @@ public class COVIN
     
                 switch(ch)
                 {
-                    case 0: hos_cova_slot.put(hosID,qty);
-                    case 1: hos_covi_slot.put(hosID,qty);
+                    case 0: hos_cova_slot.put(hosID,book_info);
+                    break;
+
+                    case 1: hos_covi_slot.put(hosID,book_info);
+                    break;
                 }
 
                 if(ch==0)
@@ -202,27 +209,77 @@ public class COVIN
                 System.out.println("Enter PinCode: ");
                 String pinco = sc.next();
 
-                add_hospital.hospital_rec
+                for(Entry<Integer, String> trav : add_hospital.hospital_rec.entrySet()) 
+                {
+                    if (trav.getValue().get(0).equals(pinco)) 
+                    {
+                        int x = trav.getKey();
+                        System.out.println(trav.getKey());
+                        
+                        ArrayList<String> y = new ArrayList<>();
+                        y = add_hospital.hospital_rec.get(x);
+                        System.out.print(" " + y.get(1));
+                    }
+                }
 
                 System.out.println("Enter hospital id: ");
+                int id = sc.nextInt();
 
-                //incomp
+                if(hos_cova_slot.get(id).get(1)!=0)
+                {
+                    System.out.println(hos_cova_slot.get(id).get(0) - 1 + "-> Day: " + hos_cova_slot.get(id).get(0) + " Available Qty:" + hos_cova_slot.get(id).get(1) + " Vaccine:Covax");  
+                }
+                if(hos_covi_slot.get(id).get(1)!=0)
+                {
+                    System.out.println(hos_cova_slot.get(id).get(0) - 1 + "-> Day: " + hos_covi_slot.get(id).get(0) + " Available Qty:" + hos_covi_slot.get(id).get(1) + " Vaccine:Covi");   
+                }    
 
                 int choice1;
                 System.out.println("Choose Slot: ");
                 choice1 = sc.nextInt();
 
-                //dash vaccinated with dash
+                if(choice1 == 0)
+                {
+                    System.out.println(Citizen.citizen_na.get(uniID) + "vaccinated with Covax" );
+                }
+                else
+                {
+                    System.out.println(Citizen.citizen_na.get(uniID) + "vaccinated with Covi" );
+                }
+
                 break;
 
                 case 2: String vac;
                 System.out.println("Enter Vaccine name: ");
+                String vac_name = sc.next();
 
-                //incomp
+                if(vac_name.equals("Covax"))
+                {
+                    for(HashMap.Entry trav : hos_cova_slot.entrySet())
+                    {
+                        System.out.println(trav.getKey() + " " + add_hospital.hospital_rec.get(trav.getKey()));
+                    }
+                }
+                else if(vac_name.equals("Covi"))
+                {
+                    for(HashMap.Entry trav : hos_covi_slot.entrySet())
+                    {
+                        System.out.println(trav.getKey() + " " + add_hospital.hospital_rec.get(trav.getKey()));
+                    }
+                }
+                else
+                {
+                    System.out.println("Wrong vaccine name, exiting...");
+                    exit(0);
+                }
 
-                System.ou.println("Enter hospital id: ");
+                System.out.println("Enter hospital id: ");
+                String h_ID = sc.next();
 
-                //incomp
+                if(hos_cova_slot.get(id).get(1)!=0)
+                {
+                    System.out.println(hos_cova_slot.get(h_ID).get(0) - 1 + "-> Day: " + hos_cova_slot.get(h_ID).get(0) + " Available Qty:" + hos_cova_slot.get(id).get(1) + " Vaccine:Covax");  
+                }
 
                 int choice2;
                 System.out.println("Choose Slot: ");
