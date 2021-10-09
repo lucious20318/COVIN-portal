@@ -1,5 +1,5 @@
 import java.util.*;
-
+import java.lang.Math;
 import javax.swing.text.GapContent;
 
 public class COVIN
@@ -34,6 +34,25 @@ public class COVIN
             sc.close();
         }
 
+    }
+
+    class add_hospital
+    {
+        void add__hospital()
+        {
+            Scanner sc = new Scanner(System.in);
+
+            System.out.println("Hospital name: ");
+            String hname = sc.next();
+
+            System.out.println("PinCode: ");
+            String pincode = sc.next();
+
+            int uniqueID = (int)(Math.random() * 100000) + 0;
+            System.out.println("Hospital Name: " + hname + ", PinCode: " + pincode + ", Unique ID: " + uniqueID+1);
+
+            sc.close();
+        }
     }
 
     public static void main(String[] args) 
