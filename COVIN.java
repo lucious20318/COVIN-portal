@@ -7,14 +7,20 @@ public class COVIN
     
     class add_vaccine
     {
-        void add__vaccine()
+
+        public HashMap <String, ArrayList> vacc_rec = new HashMap<>();
+
+        public void add__vaccine()
         {
+            ArrayList<Integer> inf = new ArrayList<>();
+
             Scanner sc = new Scanner(System.in);
             System.out.println("Vaccine Name: ");
             String name = sc.next();
     
             System.out.println("Number of doses: ");
             int doses = sc.nextInt();
+            inf.add(doses);
     
             int gap_doses;
     
@@ -31,6 +37,10 @@ public class COVIN
                 System.out.println("Vaccine Name: " + name + ", Number of Doses: " + doses + ", Gap betweem Doses: " + gap_doses);
             }
             
+            inf.add(gap_doses);
+
+            vacc_rec.put(name, inf);
+            
             sc.close();
         }
 
@@ -38,27 +48,39 @@ public class COVIN
 
     class add_hospital
     {
-        void add__hospital()
+        public HashMap < Integer,ArrayList > hospital_rec = new HashMap<>();
+
+        public void add__hospital()
         {
             Scanner sc = new Scanner(System.in);
+            ArrayList<String> info = new ArrayList<>(); 
 
             System.out.println("Hospital name: ");
             String hname = sc.next();
+            info.add(hname);
 
             System.out.println("PinCode: ");
             String pincode = sc.next();
+            info.add(pincode);
 
             int uniqueID = (int)(Math.random() * 100000) + 0;
-            System.out.println("Hospital Name: " + hname + ", PinCode: " + pincode + ", Unique ID: " + uniqueID+1);
+            hospital_rec.put(uniqueID, info);
 
+            System.out.println("Hospital Name: " + hname + ", PinCode: " + pincode + ", Unique ID: " + uniqueID+1);
             sc.close();
         }
     }
 
     class Citizen
     {
-        void citizen_()
+
+        public HashMap < String, Age > citizen_rec = new HashMap<>();
+
+        public HashMap <String, String> vaccination_status = new HashMap<>();
+
+        public void citizen_()
         {
+
             Scanner sc = new Scanner(System.in);
 
             System.out.println("Citizen Name: ");
@@ -75,15 +97,21 @@ public class COVIN
             if (age < 18)
             {
                 System.out.println("Only above 18 are allowed");
+                exit(0);
                 //Cannot register
             }
+            else
+            {
+                //Else register , feed in the records.
+                citizen_rec.put(uniqID,age);
 
-            //Else register , feed in the records.
-
+                vaccination_status.put(uniID,"REGISTERED");
+                
+            }
             sc.close();
         }
 
-        void vacc_status()
+        public void vacc_status()
         {
             Scanner sc = new Scanner(System.in);
 
@@ -92,7 +120,7 @@ public class COVIN
 
             System.out.println("Vaccine Given: ");
             //
-            System.out.println("Number if Doses given: ");
+            System.out.println("Number of Doses given: ");
             //
             System.out.println("Next Dose due date: ");
 
@@ -101,8 +129,11 @@ public class COVIN
     }
 
     class SLOT
-    {
-        void create_slot()
+    {   
+        public Hashmap <String , Integer> hos_covi_slot = new Hashmap<>();
+        public Hashmap <String , Integer> hos_cova_slot = new Hashmap<>();
+
+        public void create_slot()
         {
             Scanner sc = new Scanner(System.in);
 
@@ -128,32 +159,36 @@ public class COVIN
     
                 switch(ch)
                 {
-                    case 0: 
-                    case 1:
+                    case 0: hos_cova_slot.put(hosID,qty);
+                    case 1: hos_covi_slot.put(hosID,qty);
                 }
 
                 if(ch==0)
                 {
                     System.out.println("Slot added by Hospital " + hosID + " for Day: " + dayno + ", Available Quantity: " + qty + " of Vaccine Covax");
                 }
-                else
+                else if(ch == 1)
                 {
                     System.out.println("Slot added by Hospital " + hosID + " for Day: " + i + ", Available Quantity: " + qty + " of Vaccine Covi");
-
+                }
+                else
+                {
+                    System.out.println("Error, wrong choice");
+                    exit(0);
                 }
             }
 
             sc.close();
         }
         
-        void book_slot()
+        public void book_slot()
         {
             Scanner sc = new Scanner(System.in);
 
             System.out.println("Enter patient Unique ID: ");
-            String uniID = sc.next();
+            int uniID = sc.nextInt();
 
-            System.out.println("1. Seach by area");
+            System.out.println("1. Search by area");
             System.out.println("2. Search by Vaccine");
             System.out.println("3. Exit");
 
@@ -165,10 +200,11 @@ public class COVIN
             {
                 case 1: String pin;
                 System.out.println("Enter PinCode: ");
+                String pinco = sc.next();
 
-                //incomp
+                add_hospital.hospital_rec
 
-                System.ou.println("Enter hospital id: ");
+                System.out.println("Enter hospital id: ");
 
                 //incomp
 
@@ -202,7 +238,7 @@ public class COVIN
             sc.close();
         }
 
-        void availability()
+        public void availability()
         {
             Scanner sc = new Scanner(System.in);
 
