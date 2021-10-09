@@ -82,6 +82,22 @@ public class COVIN
 
             sc.close();
         }
+
+        void vacc_status()
+        {
+            Scanner sc = new Scanner(System.in);
+
+            System.out.println("Enter Patient ID: ");
+            String patID = sc.next();
+
+            System.out.println("Vaccine Given: ");
+            //
+            System.out.println("Number if Doses given: ");
+            //
+            System.out.println("Next Dose due date: ");
+
+            sc.close();
+        }
     }
 
     class SLOT
@@ -156,9 +172,9 @@ public class COVIN
 
                 //incomp
 
-                int choice;
+                int choice1;
                 System.out.println("Choose Slot: ");
-                choice = sc.nextInt();
+                choice1 = sc.nextInt();
 
                 //dash vaccinated with dash
                 break;
@@ -172,18 +188,30 @@ public class COVIN
 
                 //incomp
 
-                int choice;
+                int choice2;
                 System.out.println("Choose Slot: ");
-                choice = sc.nextInt();
+                choice2 = sc.nextInt();
 
                 //dash vaccinated with dash
                 break; 
+                
+                case 3: System.out.println("Exiting...");
+                exit(0);
             }
+
+            sc.close();
         }
 
         void availability()
         {
+            Scanner sc = new Scanner(System.in);
 
+            System.out.println("Enter Hospital ID: ");
+            String hospID = sc.next();
+
+            //incomp
+
+            sc.close();
         }
 
     }
