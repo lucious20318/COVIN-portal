@@ -220,7 +220,36 @@ public class COVIN
 
     public static void main(String[] args) 
     {
-        //end
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("CoWin Portal initialized...");
+        System.out.println(50*'-');
+        System.out.println("1. Add Vaccine");
+        System.out.println("2. Register Hospital");
+        System.out.println("3. Register Citizen");
+        System.out.println("4. Add Slot for Vaccination");
+        System.out.println("5. Book Slot for Vaccination");
+        System.out.println("6. List all slots for a hospital");
+        System.out.println("7. Check Vaccination Status");
+        System.out.println("8. Exit");
+        System.out.println(50*'-');
+
+        int opt = sc.nextInt();
+
+        switch(opt)
+        {
+            case 1:  
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+        }
+
+        sc.close();
+
 	}
 
 }
