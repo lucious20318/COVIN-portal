@@ -132,7 +132,53 @@ public class COVIN
         
         void book_slot()
         {
+            Scanner sc = new Scanner(System.in);
 
+            System.out.println("Enter patient Unique ID: ");
+            String uniID = sc.next();
+
+            System.out.println("1. Seach by area");
+            System.out.println("2. Search by Vaccine");
+            System.out.println("3. Exit");
+
+            int ch;
+            System.out.println("Enter option: ");
+            ch = sc.nextInt();
+
+            switch(ch)
+            {
+                case 1: String pin;
+                System.out.println("Enter PinCode: ");
+
+                //incomp
+
+                System.ou.println("Enter hospital id: ");
+
+                //incomp
+
+                int choice;
+                System.out.println("Choose Slot: ");
+                choice = sc.nextInt();
+
+                //dash vaccinated with dash
+                break;
+
+                case 2: String vac;
+                System.out.println("Enter Vaccine name: ");
+
+                //incomp
+
+                System.ou.println("Enter hospital id: ");
+
+                //incomp
+
+                int choice;
+                System.out.println("Choose Slot: ");
+                choice = sc.nextInt();
+
+                //dash vaccinated with dash
+                break; 
+            }
         }
 
         void availability()
