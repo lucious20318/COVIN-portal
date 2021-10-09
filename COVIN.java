@@ -55,6 +55,33 @@ public class COVIN
         }
     }
 
+    class Citizen
+    {
+        void citizen_()
+        {
+            Scanner sc = new Scanner(System.in);
+
+            System.out.println("Citizen Name: ");
+            String name_cit = sc.next();
+
+            System.out.println("Age: ");
+            int age = sc.nextInt();
+
+            System.out.println("Unique ID: ");
+            String uniqID = sc.next();
+
+            System.out.println("Citizen Name: " + name_cit + ", Age: " + age + ", Unique ID: " + uniqID);
+
+            if (age < 18)
+            {
+                System.out.println("Only above 18 are allowed");
+                //Cannot register
+            }
+
+            //Else register , feed in the records.
+        }
+    }
+
     public static void main(String[] args) 
     {
         //end
