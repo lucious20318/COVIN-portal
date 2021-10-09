@@ -79,8 +79,70 @@ public class COVIN
             }
 
             //Else register , feed in the records.
+
+            sc.close();
         }
     }
+
+    class SLOT
+    {
+        void create_slot()
+        {
+            Scanner sc = new Scanner(System.in);
+
+            System.out.println("Enter Hospital ID: ");
+            String hosID = sc.next();
+
+            System.out.println("Enter number of slots to be added: ");
+            int n = sc.nextInt();
+
+            for(int i=0; i<n; i++)
+            {
+                System.out.println("Enter Day Number: ");
+                int dayno = sc.nextInt();
+    
+                System.out.println("Enter Quantity: ");
+                int qty = sc.nextInt();
+    
+                System.out.println("Select Vaccine");
+                System.out.println("0. Covax");
+                System.out.println("1. Covi");
+    
+                int ch = sc.nextInt();
+    
+                switch(ch)
+                {
+                    case 0: 
+                    case 1:
+                }
+
+                if(ch==0)
+                {
+                    System.out.println("Slot added by Hospital " + hosID + " for Day: " + dayno + ", Available Quantity: " + qty + " of Vaccine Covax");
+                }
+                else
+                {
+                    System.out.println("Slot added by Hospital " + hosID + " for Day: " + i + ", Available Quantity: " + qty + " of Vaccine Covi");
+
+                }
+            }
+
+            sc.close();
+        }
+        
+        void book_slot()
+        {
+
+        }
+
+        void availability()
+        {
+
+        }
+
+    }
+
+
 
     public static void main(String[] args) 
     {
