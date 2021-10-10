@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.lang.Math;
 import javax.swing.text.GapContent;
 
@@ -78,7 +79,8 @@ public class COVIN
         public static HashMap < String, String > citizen_na = new HashMap<>();
 
         public HashMap <String, String> vaccination_status = new HashMap<>();
-
+        public static HashMap <String, ArrayList> additional_info = new HashMap<>();
+        
         public void citizen_()
         {
 
@@ -108,6 +110,12 @@ public class COVIN
                 citizen_na.put(uniqID,name_cit);
                 vaccination_status.put(uniID,"REGISTERED");
                 
+                ArrayList<Integer> addinfo = new ArrayList<>();
+                addinfo.add(0);
+                addinfo.add(0);
+                addinfo.add(0);
+                additional_info.put(uniqID,addinfo);
+                
             }
             sc.close();
         }
@@ -119,11 +127,28 @@ public class COVIN
             System.out.println("Enter Patient ID: ");
             String patID = sc.next();
 
+            System.out.println(vaccination_status.get(patID));
+
             System.out.println("Vaccine Given: ");
-            //
-            System.out.println("Number of Doses given: ");
-            //
-            System.out.println("Next Dose due date: ");
+            if(additional_info.get(patID).get(0) == 1)
+            {
+                System.out.print("Covax");
+            }
+            else
+            {
+                System.out.print("Covi");
+            }
+            
+            System.out.println("Number of Doses given: " + additional_info.get(patID).get(1));
+        
+            if(vaccination_status.get(patID).eqauls("FULLY VACCINATED"))
+            {
+                int z = 1;
+            }
+            else
+            {
+                System.out.println("Next Dose due date: " + additional_info.get(patID).get(2));
+            }
 
             sc.close();
         }
@@ -231,7 +256,7 @@ public class COVIN
                 }
                 if(hos_covi_slot.get(id).get(1)!=0)
                 {
-                    System.out.println(hos_cova_slot.get(id).get(0) - 1 + "-> Day: " + hos_covi_slot.get(id).get(0) + " Available Qty:" + hos_covi_slot.get(id).get(1) + " Vaccine:Covi");   
+                    System.out.println(hos_covi_slot.get(id).get(0) - 1 + "-> Day: " + hos_covi_slot.get(id).get(0) + " Available Qty:" + hos_covi_slot.get(id).get(1) + " Vaccine:Covi");   
                 }    
 
                 int choice1;
@@ -241,10 +266,16 @@ public class COVIN
                 if(choice1 == 0)
                 {
                     System.out.println(Citizen.citizen_na.get(uniID) + "vaccinated with Covax" );
+                    Citizen.additional_info.get(uniID).set(0,1);
+                    int dosess = Citizen.additional_info.get(uniID).get(1);
+                    Citizen.additional_info.get(uniID).set(1, dosess+1);
                 }
                 else
                 {
                     System.out.println(Citizen.citizen_na.get(uniID) + "vaccinated with Covi" );
+                    Citizen.additional_info.get(uniID).set(0,2);
+                    int dosess = Citizen.additional_info.get(uniID).get(1);
+                    Citizen.additional_info.get(uniID).set(1, dosess+1);
                 }
 
                 break;
@@ -270,22 +301,72 @@ public class COVIN
                 else
                 {
                     System.out.println("Wrong vaccine name, exiting...");
-                    exit(0);
+                    
                 }
 
                 System.out.println("Enter hospital id: ");
                 String h_ID = sc.next();
 
-                if(hos_cova_slot.get(id).get(1)!=0)
+                if(vac_name.equals("Covax"))
                 {
-                    System.out.println(hos_cova_slot.get(h_ID).get(0) - 1 + "-> Day: " + hos_cova_slot.get(h_ID).get(0) + " Available Qty:" + hos_cova_slot.get(id).get(1) + " Vaccine:Covax");  
+                    if(hos_cova_slot.get(id).get(1)!=0)
+                    {
+                        System.out.println(hos_cova_slot.get(h_ID).get(0) - 1 + "-> Day: " + hos_cova_slot.get(h_ID).get(0) + " Available Qty:" + hos_cova_slot.get(id).get(1) + " Vaccine:Covax");  
+                                             
+                    }
+                    else
+                    {
+                        System.out.println("No slots available");
+                    }
+                }
+                else if(vac_name.equals("Covi"))
+                {
+                    if(hos_covi_slot.get(id).get(1)!=0)
+                    {
+                        System.out.println(hos_covi_slot.get(h_ID).get(0) - 1 + "-> Day: " + hos_covi_slot.get(h_ID).get(0) + " Available Qty:" + hos_covi_slot.get(id).get(1) + " Vaccine:Covi");  
+                        
+                    }
+                    else
+                    {
+                        System.out.println("No slots available");
+                        
+                    }
+                }
+                else
+                {
+                    System.out.println("Wrong name of Vaccine, exiting....");
                 }
 
                 int choice2;
                 System.out.println("Choose Slot: ");
                 choice2 = sc.nextInt();
 
-                //dash vaccinated with dash
+                if(choice2 == hos_cova_slot.get(id).get(0) - 1)
+                {
+                    if(vac_name.equals("Covax"))
+                    {
+                        System.out.println(Citizen.citizen_na.get(uniID) + "vaccinated with Covax" );
+                        Citizen.additional_info.get(uniID).set(0,1);
+                        int dosess = Citizen.additional_info.get(uniID).get(1);
+                        Citizen.additional_info.get(uniID).set(1, dosess+1);
+                    }                    
+                }
+
+                else if(choice2 == hos_covi_slot.get(id).get(0) - 1)
+                {
+                    if(vac_name.equals("Covi"))
+                    {
+                        System.out.println(Citizen.citizen_na.get(uniID) + "vaccinated with Covi" );
+                        Citizen.additional_info.get(uniID).set(0,2);
+                        int dosess = Citizen.additional_info.get(uniID).get(1);
+                        Citizen.additional_info.get(uniID).set(1, dosess+1);
+                    }
+                }
+                else
+                {
+                    System.out.println("No slot exist");
+                }
+
                 break; 
                 
                 case 3: System.out.println("Exiting...");
@@ -300,9 +381,17 @@ public class COVIN
             Scanner sc = new Scanner(System.in);
 
             System.out.println("Enter Hospital ID: ");
-            String hospID = sc.next();
+            int hospID = sc.nextInt();
 
-            //incomp
+            if(hos_cova_slot.get(id).get(1)!=0)
+            {
+                System.out.println("Day: " + hos_cova_slot.get(id).get(0) + " Vaccine: Covax Available Qty:" + hos_cova_slot.get(id).get(1));  
+            }
+
+            if(hos_covi_slot.get(id).get(1)!=0)
+            {
+                System.out.println("Day: " + hos_covi_slot.get(id).get(0) + " Vaccine: Covi Available Qty:" + hos_covi_slot.get(id).get(1));  
+            }
 
             sc.close();
         }
