@@ -1,4 +1,7 @@
+import java.lang.reflect.Array;
 import java.util.*;
+
+import javax.lang.model.util.ElementScanner14;
 
 import jdk.javadoc.internal.doclets.formats.html.resources.standard;
 
@@ -8,7 +11,7 @@ public class COWIN
     static class add_vaccine
     {
 
-        public HashMap <String, Integer> vacc_numb = new HashMap<>();
+        public static HashMap <String, Integer> vacc_numb = new HashMap<>();
         public static HashMap <String, Integer> vacc_gap = new HashMap<>();
         public static ArrayList<String> vaccine = new ArrayList<>();
 
@@ -75,6 +78,8 @@ public class COWIN
         public static HashMap <String, String> vaccination_status = new HashMap<>();
         public static HashMap <String, Integer> vacc_dose = new HashMap<>();
         public static HashMap <String, String> vacc_given = new HashMap<>();
+        public static HashMap <String, String> cit_name = new HashMap<>();
+        public static HashMap <String, Integer> vacc_tak = new HashMap<>();
 
         public void citizen_()
         {
@@ -100,7 +105,9 @@ public class COWIN
             else
             {
                 //Else register , feed in the records.
-                vaccination_status.put(uniqID,"REGISTERED");   
+                vaccination_status.put(uniqID,"REGISTERED");
+                cit_name.put(uniqID,name_cit); 
+                vacc_tak.put(uniqID, 0);  
             }        
         }
 
@@ -117,10 +124,12 @@ public class COWIN
             if(status.equals("PARTIALLY VACCINATED"))
             {
                 System.out.print("Vaccine Given: " + vacc_given.get(patID));
+                System.out.println();
                 System.out.print("Number of Doses given: " + vacc_dose.get(patID));
                 String given = vacc_given.get(patID);
-                int due = add_vaccine.vacc_gap.get(given);
-                System.out.print("Next Dose due date: " + due+1);
+                int due = add_vaccine.vacc_gap.get(given)+1;
+                System.out.println();
+                System.out.print("Next Dose due date: " + due);
             }
 
             else
@@ -175,6 +184,8 @@ public class COWIN
 
                 hos_deets.put(dayno,deet);
 
+                String st = add_vaccine.vaccine.get(ch);
+
                 /*hos_day.put(hosID, dayno);
                 hos_qty.put(hosID, qty);
                 String st = add_vaccine.vaccine.get(ch);
@@ -186,6 +197,8 @@ public class COWIN
 
         public void book_slot()
         {
+            Scanner sc = new Scanner(System.in);
+
             System.out.print("Enter patient Unique ID: ");
             String uniqID = sc.next();
 
@@ -210,7 +223,7 @@ public class COWIN
                         if(h.equals(pinco))
                         {
                             int x = trav.getKey();
-                            System.out.println(x + " " + alist.get(0));
+                            System.out.println(x + " " + add_hospital.hospital_na.get(x));
                         }
                     }               
                 }
@@ -218,22 +231,24 @@ public class COWIN
                 System.out.print("Enter hospital id: ");
                 int id = sc.nextInt();
 
-                
+                ArrayList<String> str = new ArrayList<>();
 
                 for(HashMap.Entry <Integer, ArrayList> trav : hos_deets.entrySet()) 
                 {
                     {
-                        ArrayList<String> travlist = new ArrayList<>();
+                        ArrayList<Integer> travlist = new ArrayList<>();
                         travlist = trav.getValue();
     
-                        int idd = alist.get(2);
+                        int idd = travlist.get(2);
                         if(id == idd)
                         {
                             int x = trav.getKey();
                             int slot_no = x-1;
                             int y = travlist.get(0);
-                            String h = add_vaccine.vaccine.get(y);
-                            System.out.println(slot_no + "-> Day: " + trav.getKey() + " Available Qty:" + y + " Vaccine: " + h);                      
+                            
+                            String h = add_vaccine.vaccine.get(slot_no);
+                            str.add(h);
+                            System.out.println(slot_no + "-> Day: " + trav.getKey() + " Available Qty:" + y + " Vaccine: " + h);                                                 
                         }
                     }
                 }  
@@ -242,10 +257,49 @@ public class COWIN
                 System.out.println("Choose Slot: ");
                 choice = sc.nextInt();
 
-               
+                String h = str.get(choice);
 
+                String pat = Citizen.cit_name.get(uniqID);            
+                System.out.println(pat + " vaccinated with " + h);
+                Citizen.vacc_given.put(uniqID, h);   
                 
+                for(HashMap.Entry <Integer, ArrayList> trav : hos_deets.entrySet()) 
+                {
+                    {
+                        ArrayList<Integer> travlist = new ArrayList<>();
+                        travlist = trav.getValue();
+                        int inde = travlist.get(1);
+                        String vaa = add_vaccine.vaccine.get(inde);
 
+                        if(vaa == h)
+                        {
+                            int z = trav.getKey();
+                            int q = travlist.get(0);
+                            travlist.set(0, q-1);
+                            hos_deets.put(z, travlist);                      
+                        }
+                    }
+                }
+
+                int req = add_vaccine.vacc_numb.get(h);
+                int taken = Citizen.vacc_tak.get(uniqID) + 1;
+
+                Citizen.vacc_dose.put(uniqID, taken);
+
+                if(taken == req)
+                {
+                    Citizen.vaccination_status.put(uniqID, "FULLY VACCINATED");
+                }
+                else
+                {
+                    Citizen.vaccination_status.put(uniqID, "PARTIALLY VACCINATED");
+                }
+
+                break;
+
+                case 2: 
+
+                default: System.out.println("Wrong option");
 
             }
 
@@ -263,14 +317,14 @@ public class COWIN
             for(HashMap.Entry <Integer, ArrayList> trav : hos_deets.entrySet()) 
             {
                 {
-                    ArrayList<String> alist = new ArrayList<>();
+                    ArrayList<Integer> alist = new ArrayList<>();
                     alist = trav.getValue();
 
                     int id = alist.get(2);
                     if(id == hospID)
                     {
                         int x = trav.getKey();
-                        int y = alist.get(1);
+                        int y = x-1;
                         String h = add_vaccine.vaccine.get(y);
                         System.out.println("Day: " + x + " Vaccine: " + h + " Available Qty:" + alist.get(0));                       
                     }
@@ -350,5 +404,6 @@ public class COWIN
                 System.out.println("Wrong option");
             }
         }
+        
     }    
 }
