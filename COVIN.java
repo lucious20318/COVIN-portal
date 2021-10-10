@@ -380,14 +380,19 @@ public class COVIN
             System.out.println("Enter Hospital ID: ");
             int hospID = sc.nextInt();
 
-            if(hos_cova_slot.get(hospID).get(1)!=0)
+            ArrayList<Integer> ava_cova = new ArrayList<>();
+            ArrayList<Integer> ava_covi = new ArrayList<>();
+            ava_cova = hos_cova_slot.get(hospID);
+            ava_covi = hos_covi_slot.get(hospID);
+
+            if(ava_cova.get(1)!=0)
             {
-                System.out.println("Day: " + hos_cova_slot.get(hospID).get(0) + " Vaccine: Covax Available Qty:" + hos_cova_slot.get(hospID).get(1));  
+                System.out.println("Day: " + ava_cova.get(0) + " Vaccine: Covax Available Qty:" + ava_cova.get(1));  
             }
 
-            if(hos_covi_slot.get(hospID).get(1)!=0)
+            if(ava_covi.get(1)!=0)
             {
-                System.out.println("Day: " + hos_covi_slot.get(hospID).get(0) + " Vaccine: Covi Available Qty:" + hos_covi_slot.get(hospID).get(1));  
+                System.out.println("Day: " + ava_covi.get(0) + " Vaccine: Covi Available Qty:" + ava_covi.get(1));  
             }
 
         }
