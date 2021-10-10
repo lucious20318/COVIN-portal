@@ -155,7 +155,7 @@ public class COWIN
             {
                 System.out.print("Enter Day Number: ");
                 int dayno = sc.nextInt();
-                deet.add(dayno)
+                deet.add(dayno);
 
                 System.out.print("Enter Quantity: ");
                 int qty = sc.nextInt();
@@ -185,18 +185,40 @@ public class COWIN
 
         public void book_slot()
         {
+            System.out.print("Enter patient Unique ID: ");
+            String uniqID = sc.next();
+
+            System.out.println("1. Search by area");
+            System.out.println("2. Search by Vaccine");
+            System.out.println("3. Exit");
+
+            int ch;
+            System.out.print("Enter option: ");
+            ch = sc.nextInt();
+
+            switch(ch)
+            {
+                case 1: System.out.print("Enter PinCode: ");
+                String pinco = sc.next();
+
+                
+            }
 
         }
 
         public void availability()
         {
-
             Scanner sc = new Scanner(System.in);
             System.out.print("Enter Hospital ID: ");
             int hospID = sc.nextInt();
 
-            ArrayList<Integer> details = new 
-            System.out.println("Day: " + hos_day.get(hospID) + " Vaccine: " + hos_vac(hospID) + " Available Qty:" + hos_qty.get(hospID));  
+            ArrayList<Integer> details = new ArrayList<>();
+            details = hos_deets.get(hospID);
+
+            int ind = details.get(2);
+            String va = add_vaccine.vaccine.get(ind);
+
+            System.out.println("Day: " + details.get(0) + " Vaccine: " + va + " Available Qty:" + details.get(1));  
         } 
     }
 
