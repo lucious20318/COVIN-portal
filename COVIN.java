@@ -1,9 +1,6 @@
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.lang.Math;
 
-import javax.crypto.AEADBadTagException;
-import javax.swing.text.GapContent;
+import java.lang.Math;
 
 public class COVIN
 {
@@ -67,7 +64,7 @@ public class COVIN
             int uniqueID = (int)(Math.random() * 100000) + 0;
             hospital_rec.put(uniqueID, info);
 
-            System.out.println("Hospital Name: " + hname + ", PinCode: " + pincode + ", Unique ID: " + uniqueID+1);
+            System.out.println("Hospital Name: " + hname + ", PinCode: " + pincode + ", Unique ID: " + uniqueID);
             
         }
     }
@@ -322,11 +319,10 @@ public class COVIN
 
                 if(vac_name.equals("Covax"))
                 {
-                    
                     for(HashMap.Entry trav : hos_cova_slot.entrySet())
                     {
                         ArrayList<String> xyz = new ArrayList<>();
-                        xyz = add_hospital.hospital_rec.getValue(trav.getKey());
+                        xyz = add_hospital.hospital_rec.get(trav.getKey());
                         System.out.println(trav.getKey() + " " + xyz.get(0));
                     }
                 }
@@ -335,7 +331,7 @@ public class COVIN
                     for(HashMap.Entry trav : hos_covi_slot.entrySet())
                     {
                         ArrayList<String> xyz = new ArrayList<>();
-                        xyz = add_hospital.hospital_rec.getValue(trav.getKey());
+                        xyz = add_hospital.hospital_rec.get(trav.getKey());
                         System.out.println(trav.getKey() + " " + xyz.get(0));
                     }
                 }
@@ -356,7 +352,11 @@ public class COVIN
 
                 if(vac_name.equals("Covax"))
                 {
-                    if(slot_info.get(1)!=0)
+                    if(slot_info.size() == 0)
+                    {
+                        System.out.println("No slots available");
+                    }
+                    else if(slot_info.get(1)!=0)
                     {                        
                         System.out.println(slot_info.get(0) - 1 + "-> Day: " + slot_info.get(0) + " Available Qty:" + slot_info.get(1) + " Vaccine:Covax");                      
                     }
@@ -369,7 +369,12 @@ public class COVIN
 
                 if(vac_name.equals("Covi"))
                 {
-                    if(slot_info2.get(1)!=0)
+                    if(slot_info.size() == 0)
+                    {
+                        System.out.println("No slots available");
+                    }
+
+                    else if(slot_info2.get(1)!=0)
                     {   
                         System.out.println(slot_info2.get(0) - 1 + "-> Day: " + slot_info2.get(0) + " Available Qty:" + slot_info2.get(1) + " Vaccine:Covi");  
                     }
