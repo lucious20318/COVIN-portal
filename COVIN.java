@@ -84,13 +84,13 @@ public class COVIN
 
             Scanner sc = new Scanner(System.in);
 
-            System.out.println("Citizen Name: ");
+            System.out.print("Citizen Name: ");
             String name_cit = sc.next();
 
-            System.out.println("Age: ");
+            System.out.print("Age: ");
             int age = sc.nextInt();
 
-            System.out.println("Unique ID: ");
+            System.out.print("Unique ID: ");
             String uniqID = sc.next();
 
             System.out.println("Citizen Name: " + name_cit + ", Age: " + age + ", Unique ID: " + uniqID);
@@ -230,29 +230,45 @@ public class COVIN
                 System.out.println("Enter PinCode: ");
                 String pinco = sc.next();
 
-                for(Entry<Integer, String> trav : add_hospital.hospital_rec.entrySet()) 
+                for(HashMap.Entry <Integer, ArrayList> trav : add_hospital.hospital_rec.entrySet()) 
                 {
-                    if (trav.getValue().get(0).equals(pinco)) 
+                    for(ArrayList<String> hopin : trav.getValue())
+                    {
+                            if(hopin.get(1).equals(pinco))
+                            {
+                                System.out.println(trav.getKey());
+                                System.out.print(hopin.get(0));
+                            }                                                                            
+                    }
+
+                    '''if (trav.getValue().get(0).equals(pinco)) 
                     {
                         int x = trav.getKey();
-                        System.out.println(trav.getKey());
+                        System.out.println(x);
                         
                         ArrayList<String> y = new ArrayList<>();
                         y = add_hospital.hospital_rec.get(x);
                         System.out.print(" " + y.get(1));
-                    }
+                    }'''
                 }
 
                 System.out.println("Enter hospital id: ");
                 int id = sc.nextInt();
 
-                if(hos_cova_slot.get(id).get(1) != 0)
+                ArrayList <Integer> inf_cova = new ArrayList<>();
+                ArrayList <Integer> inf_covi = new ArrayList<>(); 
+
+                inf_cova = hos_cova_slot.get(id);
+                inf_covi = hos_covi_slot.get(id);
+
+                if(inf_cova.get(1) != 0)
                 {
-                    System.out.println(hos_cova_slot.get(id).get(0) - 1 + "-> Day: " + hos_cova_slot.get(id).get(0) + " Available Qty:" + hos_cova_slot.get(id).get(1) + " Vaccine:Covax");  
+                    System.out.println(inf_cova.get(0) - 1 + "-> Day: " + inf_cova.get(0) + " Available Qty:" + inf_cova.get(1) + " Vaccine:Covax");  
                 }
-                if(hos_covi_slot.get(id).get(1)!=0)
+
+                if(inf_covi.get(1) !=0)
                 {
-                    System.out.println(hos_covi_slot.get(id).get(0) - 1 + "-> Day: " + hos_covi_slot.get(id).get(0) + " Available Qty:" + hos_covi_slot.get(id).get(1) + " Vaccine:Covi");   
+                    System.out.println(inf_covi.get(0) - 1 + "-> Day: " + inf_covi.get(0) + " Available Qty:" + inf_covi.get(1) + " Vaccine:Covi");   
                 }    
 
                 int choice1;
@@ -303,30 +319,37 @@ public class COVIN
                 System.out.println("Enter hospital id: ");
                 String h_ID = sc.next();
 
+                ArrayList<Integer> slot_info = new ArrayList<>();
+                slot_info = hos_cova_slot.get(h_ID);
+                
+                ArrayList<Integer> slot_info2 = new ArrayList<>();
+                slot_info2 = hos_covi_slot.get(h_ID);
+
                 if(vac_name.equals("Covax"))
                 {
-                    if(hos_cova_slot.get(id).get(1)!=0)
-                    {
-                        System.out.println(hos_cova_slot.get(h_ID).get(0) - 1 + "-> Day: " + hos_cova_slot.get(h_ID).get(0) + " Available Qty:" + hos_cova_slot.get(id).get(1) + " Vaccine:Covax");  
-                                             
+                    if(inf_cova.get(1)!=0)
+                    {                        
+                        System.out.println(slot_info.get(0) - 1 + "-> Day: " + slot_info.get(0) + " Available Qty:" + slot_info.get(1) + " Vaccine:Covax");                      
                     }
+
                     else
                     {
                         System.out.println("No slots available");
                     }
                 }
-                else if(vac_name.equals("Covi"))
+
+                if(vac_name.equals("Covi"))
                 {
-                    if(hos_covi_slot.get(id).get(1)!=0)
-                    {
-                        System.out.println(hos_covi_slot.get(h_ID).get(0) - 1 + "-> Day: " + hos_covi_slot.get(h_ID).get(0) + " Available Qty:" + hos_covi_slot.get(id).get(1) + " Vaccine:Covi");  
-                        
+                    if(inf_covi.get(1)!=0)
+                    {   
+                        System.out.println(slot_info2.get(0) - 1 + "-> Day: " + slot_info2.get(0) + " Available Qty:" + slot_info2.get(1) + " Vaccine:Covi");  
                     }
+
                     else
                     {
-                        System.out.println("No slots available");
-                        
+                        System.out.println("No slots available");  
                     }
+                    
                 }
                 else
                 {
@@ -337,7 +360,7 @@ public class COVIN
                 System.out.println("Choose Slot: ");
                 choice2 = sc.nextInt();
 
-                if(choice2 == hos_cova_slot.get(id).get(0) - 1)
+                if(choice2 == slot_info.get(0) - 1)
                 {
                     if(vac_name.equals("Covax"))
                     {
@@ -348,7 +371,7 @@ public class COVIN
                     }                    
                 }
 
-                else if(choice2 == hos_covi_slot.get(id).get(0) - 1)
+                else if(choice2 == slot_info2.get(0) - 1)
                 {
                     if(vac_name.equals("Covi"))
                     {
@@ -468,8 +491,6 @@ public class COVIN
             {
                 System.out.println("Wrong option");
             }
-
         }
     }
-
 }
