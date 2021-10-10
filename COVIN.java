@@ -214,7 +214,7 @@ public class COVIN
             Scanner sc = new Scanner(System.in);
 
             System.out.println("Enter patient Unique ID: ");
-            int uniID = sc.nextInt();
+            String uniID = sc.nextInt();
 
             System.out.println("1. Search by area");
             System.out.println("2. Search by Vaccine");
@@ -226,22 +226,27 @@ public class COVIN
 
             switch(ch)
             {
-                case 1: String pin;
+                case 1: 
                 System.out.println("Enter PinCode: ");
                 String pinco = sc.next();
 
                 for(HashMap.Entry <Integer, ArrayList> trav : add_hospital.hospital_rec.entrySet()) 
                 {
-                    for(ArrayList<String> hopin : trav.getValue())
                     {
-                            if(hopin.get(1).equals(pinco))
-                            {
-                                System.out.println(trav.getKey());
-                                System.out.print(hopin.get(0));
-                            }                                                                            
+                        ArrayList<String> alist = new ArrayList<>();
+                        
+                        alist = trav.getValue();
+                        
+                        String h = alist.get(1);
+                        
+                        if(h.equals(pinco))
+                        {
+                            System.out.println(trav.getKey() + " " + alist.get(0));
+                        }
                     }
+   
 
-                    '''if (trav.getValue().get(0).equals(pinco)) 
+                    /*if (trav.getValue().get(0).equals(pinco)) 
                     {
                         int x = trav.getKey();
                         System.out.println(x);
@@ -249,7 +254,7 @@ public class COVIN
                         ArrayList<String> y = new ArrayList<>();
                         y = add_hospital.hospital_rec.get(x);
                         System.out.print(" " + y.get(1));
-                    }'''
+                    }*/
                 }
 
                 System.out.println("Enter hospital id: ");
@@ -278,16 +283,27 @@ public class COVIN
                 if(choice1 == 0)
                 {
                     System.out.println(Citizen.citizen_na.get(uniID) + "vaccinated with Covax" );
-                    Citizen.additional_info.get(uniID).set(0,1);
-                    int dosess = Citizen.additional_info.get(uniID).get(1);
+                    ArrayList <Integer> citinf = new ArrayList<>();
+                    citinf = Citizen.additional_info.get(uniID);
+                    citinf.set(0,1);
+
+                    ArrayList<Integer> dossinf = new ArrayList<>();
+                    dossinf = Citizen.additional_info.get(uniID); 
+                    int dosess = dossinf.get(1);
                     Citizen.additional_info.get(uniID).set(1, dosess+1);
                 }
                 else
                 {
                     System.out.println(Citizen.citizen_na.get(uniID) + "vaccinated with Covi" );
-                    Citizen.additional_info.get(uniID).set(0,2);
-                    int dosess = Citizen.additional_info.get(uniID).get(1);
-                    Citizen.additional_info.get(uniID).set(1, dosess+1);
+
+                    ArrayList <Integer> citinf = new ArrayList<>();
+                    citinf = Citizen.additional_info.get(uniID);
+                    citinf.set(0,2);
+
+                    ArrayList<Integer> dosinf = new ArrayList<>();
+                    dosinf = Citizen.additional_info.get(uniID);
+                    int dosess = dosinf.get(1);
+                    dosinf.set(1,dosess + 1);
                 }
 
                 break;
@@ -327,7 +343,7 @@ public class COVIN
 
                 if(vac_name.equals("Covax"))
                 {
-                    if(inf_cova.get(1)!=0)
+                    if(slot_info.get(1)!=0)
                     {                        
                         System.out.println(slot_info.get(0) - 1 + "-> Day: " + slot_info.get(0) + " Available Qty:" + slot_info.get(1) + " Vaccine:Covax");                      
                     }
@@ -340,7 +356,7 @@ public class COVIN
 
                 if(vac_name.equals("Covi"))
                 {
-                    if(inf_covi.get(1)!=0)
+                    if(slot_info2.get(1)!=0)
                     {   
                         System.out.println(slot_info2.get(0) - 1 + "-> Day: " + slot_info2.get(0) + " Available Qty:" + slot_info2.get(1) + " Vaccine:Covi");  
                     }
@@ -365,8 +381,13 @@ public class COVIN
                     if(vac_name.equals("Covax"))
                     {
                         System.out.println(Citizen.citizen_na.get(uniID) + "vaccinated with Covax" );
-                        Citizen.additional_info.get(uniID).set(0,1);
-                        int dosess = Citizen.additional_info.get(uniID).get(1);
+                        ArrayList <Integer> citinf = new ArrayList<>();
+                        citinf = Citizen.additional_info.get(uniID);
+                        citinf.set(0,1);
+    
+                        ArrayList<Integer> dossinf = new ArrayList<>();
+                        dossinf = Citizen.additional_info.get(uniID); 
+                        int dosess = dossinf.get(1);
                         Citizen.additional_info.get(uniID).set(1, dosess+1);
                     }                    
                 }
@@ -376,9 +397,14 @@ public class COVIN
                     if(vac_name.equals("Covi"))
                     {
                         System.out.println(Citizen.citizen_na.get(uniID) + "vaccinated with Covi" );
-                        Citizen.additional_info.get(uniID).set(0,2);
-                        int dosess = Citizen.additional_info.get(uniID).get(1);
-                        Citizen.additional_info.get(uniID).set(1, dosess+1);
+                        ArrayList <Integer> citinf = new ArrayList<>();
+                        citinf = Citizen.additional_info.get(uniID);
+                        citinf.set(0,2);
+    
+                        ArrayList<Integer> dosinf = new ArrayList<>();
+                        dosinf = Citizen.additional_info.get(uniID);
+                        int dosess = dosinf.get(1);
+                        dosinf.set(1,dosess + 1);
                     }
                 }
                 else
