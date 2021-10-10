@@ -213,21 +213,21 @@ public class COVIN
         {
             Scanner sc = new Scanner(System.in);
 
-            System.out.println("Enter patient Unique ID: ");
-            String uniID = sc.nextInt();
+            System.out.print("Enter patient Unique ID: ");
+            String uniID = sc.next();
 
             System.out.println("1. Search by area");
             System.out.println("2. Search by Vaccine");
             System.out.println("3. Exit");
 
             int ch;
-            System.out.println("Enter option: ");
+            System.out.print("Enter option: ");
             ch = sc.nextInt();
 
             switch(ch)
             {
                 case 1: 
-                System.out.println("Enter PinCode: ");
+                System.out.print("Enter PinCode: ");
                 String pinco = sc.next();
 
                 for(HashMap.Entry <Integer, ArrayList> trav : add_hospital.hospital_rec.entrySet()) 
@@ -257,7 +257,7 @@ public class COVIN
                     }*/
                 }
 
-                System.out.println("Enter hospital id: ");
+                System.out.print("Enter hospital id: ");
                 int id = sc.nextInt();
 
                 ArrayList <Integer> inf_cova = new ArrayList<>();
@@ -277,12 +277,12 @@ public class COVIN
                 }    
 
                 int choice1;
-                System.out.println("Choose Slot: ");
+                System.out.print("Choose Slot: ");
                 choice1 = sc.nextInt();
 
                 if(choice1 == 0)
                 {
-                    System.out.println(Citizen.citizen_na.get(uniID) + "vaccinated with Covax" );
+                    System.out.println(Citizen.citizen_na.get(uniID) + " vaccinated with Covax" );
                     ArrayList <Integer> citinf = new ArrayList<>();
                     citinf = Citizen.additional_info.get(uniID);
                     citinf.set(0,1);
@@ -294,7 +294,7 @@ public class COVIN
                 }
                 else
                 {
-                    System.out.println(Citizen.citizen_na.get(uniID) + "vaccinated with Covi" );
+                    System.out.println(Citizen.citizen_na.get(uniID) + " vaccinated with Covi" );
 
                     ArrayList <Integer> citinf = new ArrayList<>();
                     citinf = Citizen.additional_info.get(uniID);
