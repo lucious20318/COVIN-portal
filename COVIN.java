@@ -138,7 +138,7 @@ public class COVIN
             {
                 System.out.print("Covi");
             }
-            
+
             System.out.println("Number of Doses given: " + additional_info.get(patID).get(1));
         
             if(vaccination_status.get(patID).eqauls("FULLY VACCINATED"))
@@ -418,17 +418,58 @@ public class COVIN
 
         int opt = sc.nextInt();
 
-        switch(opt)
+        add_vaccine add_vac = new add__vaccine();
+        add_hospital add_ho = new add__hospital();
+        Citizen citrec = new Citizen();
+        SLOT slott = new SLOT();
+
+        while(opt != 8)
         {
-            case 1:  
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
+            if(opt == 1)
+            {
+                add_vac.add__vaccine();
+            }
+
+            else if(opt == 2)
+            {
+                add_ho.add__hospital();
+            }
+
+            else if(opt == 3)
+            {
+                citrec.citizen_();
+            }
+
+            else if(opt == 4)
+            {
+                slott.create_slot();
+            }
+
+            else if(opt == 5)
+            {
+                slott.book_slot();
+            }
+            
+            else if(opt == 6)
+            {
+                slott.availability();
+            }
+
+            else if(opt == 7)
+            {
+                citrec.vacc_status();
+            }
+
+            else
+            {
+                System.out.println("Wrong option");
+            }
+
+            opt = sc.nextInt();
+
         }
+
+        exit(0);
 
         sc.close();
 
