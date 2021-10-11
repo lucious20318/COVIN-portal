@@ -123,13 +123,14 @@ public class COWIN
             String patID = sc.next();
 
             String status = vaccination_status.get(patID);
-            System.out.println(status);
+            
 
             if(status.equals("PARTIALLY VACCINATED"))
             {
+                System.out.println(status);
                 System.out.print("Vaccine Given: " + vacc_given.get(patID));
                 System.out.println();
-                System.out.print("Number of Doses given: " + vacc_dose.get(patID));
+                System.out.print("Number of Doses given: " + vacc_tak.get(patID));
                 String given = vacc_given.get(patID);
                 int due = add_vaccine.vacc_gap.get(given)+1;
                 System.out.println();
@@ -139,12 +140,15 @@ public class COWIN
 
             else if(status.equals("REGISTERED"))
             {
-
+                System.out.println("Citizen REGISTERED");
+                
             }
             else
             {
+                System.out.println(status);
                 System.out.print("Vaccine Given: " + vacc_given.get(patID));
-                System.out.print("Number of Doses given: " + vacc_dose.get(patID));
+                System.out.println();
+                System.out.println("Number of Doses given: " + vacc_tak.get(patID));
             }
         }
     }
@@ -325,7 +329,7 @@ public class COWIN
 
                 break;
 
-                case 2: System.out.println("Enter Vaccine name: ");
+                case 2: System.out.print("Enter Vaccine name: ");
                 String in = sc.next();
 
                 for(HashMap.Entry <Integer, ArrayList> trav : hos_deets.entrySet()) 
@@ -373,10 +377,16 @@ public class COWIN
                             int check = Citizen.vacc_next.get(uniqID);
                             if(check <= x)
                             {
-                                int e = travlist.get(1);
-                                String qw = add_vaccine.vaccine.get(e);
-                                str.put(slot_no, qw);
-                                System.out.println(slot_no + "-> Day: " + trav.getKey() + " Available Qty:" + y + " Vaccine: " + qw); 
+                                int w = travlist.get(1);
+                                String sr = add_vaccine.vaccine.get(w);
+                                if(in.equals(sr))
+                                {
+                                    int e = travlist.get(1);
+                                    String qw = add_vaccine.vaccine.get(e);
+                                    str.put(slot_no, qw);
+                                    System.out.println(slot_no + "-> Day: " + trav.getKey() + " Available Qty:" + y + " Vaccine: " + qw);    
+                                }
+
                             }
                             else
                             {
@@ -457,7 +467,7 @@ public class COWIN
                 {
                     ArrayList<Integer> alist = new ArrayList<>();
                     alist = trav.getValue();
-                    System.out.println(alist);
+                
                     int id = alist.get(2);
 
                     if(id == hospID)
