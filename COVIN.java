@@ -2,6 +2,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 import javax.lang.model.util.ElementScanner14;
+import javax.print.attribute.standard.RequestingUserName;
 
 import jdk.javadoc.internal.doclets.formats.html.resources.standard;
 
@@ -62,7 +63,7 @@ public class COWIN
             System.out.print("PinCode: ");
             String pincode = sc.next();
 
-            int uniqueID = (int)(Math.random() * ((999999-100000)+1));
+            int uniqueID = (int)(Math.random() * (100000+1));
             
             hospital_na.put(uniqueID, hname);
             hospital_pc.put(uniqueID, pincode);
@@ -109,7 +110,7 @@ public class COWIN
                 vaccination_status.put(uniqID,"REGISTERED");
                 cit_name.put(uniqID,name_cit); 
                 vacc_tak.put(uniqID, 0);  
-                vacc_next.put(uniqID, null);
+                vacc_next.put(uniqID,0);
             }        
         }
 
@@ -204,7 +205,7 @@ public class COWIN
         {
             Scanner sc = new Scanner(System.in);
 
-            ArrayList<String> str = new ArrayList<>();
+            HashMap<Integer,String> str = new HashMap<>();
 
             System.out.print("Enter patient Unique ID: ");
             String uniqID = sc.next();
@@ -257,12 +258,13 @@ public class COWIN
                             if(check <= x)
                             {
                                 String h = add_vaccine.vaccine.get(slot_no);
-                                str.add(h);
+                                str.put(slot_no, h);
                                 System.out.println(slot_no + "-> Day: " + trav.getKey() + " Available Qty:" + y + " Vaccine: " + h); 
                             }
                             else
                             {
-                                System.out.print("No SLOT are available");
+                                System.out.print("No slots available");
+                                return;
                             }
                                                                              
                         }
@@ -316,15 +318,30 @@ public class COWIN
                 case 2: System.out.println("Enter Vaccine name: ");
                 String in = sc.next();
 
-                for(HashMap.Entry <String, Integer> trav : hos_vac.entrySet()) 
+                for(HashMap.Entry <Integer, ArrayList> trav : hos_deets.entrySet()) 
+                {
+                    ArrayList<Integer> tra = new ArrayList<>();
+                    tra = trav.getValue();
+                    int w = tra.get(1);
+                    String sr = add_vaccine.vaccine.get(w);
+
+                    if(in.equals(sr))
+                    {
+                        int uID = tra.get(2);
+                        System.out.println(uID + " " + add_hospital.hospital_na.get(uID));
+                    }                                                
+                } 
+                
+                /*for(HashMap.Entry <String,Integer> trav : hos_vac.entrySet())
                 {
                     String sr = trav.getKey();
-                    if(in.equals(sr))
+
+                    if(sr.equals(in))
                     {
                         int uID = trav.getValue();
                         System.out.println(uID + add_hospital.hospital_na.get(uID));
-                    }                                                
-                }                 
+                    }
+                }*/
 
                 System.out.print("Enter hospital id:");
                 int id1 = sc.nextInt();
@@ -345,13 +362,15 @@ public class COWIN
                             int check = Citizen.vacc_next.get(uniqID);
                             if(check <= x)
                             {
-                                String qw = add_vaccine.vaccine.get(slot_no);
-                                str.add(qw);
+                                int e = travlist.get(1);
+                                String qw = add_vaccine.vaccine.get(e);
+                                str.put(slot_no, qw);
                                 System.out.println(slot_no + "-> Day: " + trav.getKey() + " Available Qty:" + y + " Vaccine: " + qw); 
                             }
                             else
                             {
                                 System.out.print("No slots available");
+                                return;
                             }
                                                 
                         }
@@ -386,7 +405,7 @@ public class COWIN
                     }
                 }
 
-                int reqd = add_vaccine.vacc_numb.get(h);
+                int reqd = add_vaccine.vacc_numb.get(hef);
                 int take = Citizen.vacc_tak.get(uniqID) + 1;
 
                 Citizen.vacc_dose.put(uniqID, take);
